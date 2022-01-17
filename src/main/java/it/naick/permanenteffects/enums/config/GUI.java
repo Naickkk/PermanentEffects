@@ -1,20 +1,21 @@
-package it.naick.permanenteffects.enums;
+package it.naick.permanenteffects.enums.config;
 
 import it.naick.permanenteffects.PermanentEffects;
 import it.naick.permanenteffects.config.objects.ConfigFile;
 import it.naick.permanenteffects.utils.Utils;
+import lombok.AllArgsConstructor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
 
-public enum Configurable {
+@AllArgsConstructor
+public enum GUI {
 
-    MSG_();
+    TITLE("title"),
+    SIZE("slots");
 
     private final String path;
-    private final ConfigFile messages = PermanentEffects.getInstance().getFileManager().getFile("messages");
-    private final FileConfiguration config = PermanentEffects.getInstance().getConfig();
+    private final ConfigFile file = PermanentEffects.getInstance().getFileManager().getFile("gui");
 
     public void send(CommandSender sender) {
         if (file.getConfig().get(path) instanceof List)
@@ -23,17 +24,12 @@ public enum Configurable {
         else sender.sendMessage(Utils.textColor(file.getConfig().getString(path)));
     }
 
-    public String get() {
+    public String getMessage() {
         return Utils.textColor(file.getConfig().getString(path));
     }
 
-    public Object getConfig() {
-        return config.get
+    public Object get() {
+        return file.getConfig().get(path);
     }
-
-    public Object getGui() {
-
-    }
-
 
 }

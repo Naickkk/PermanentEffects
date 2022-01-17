@@ -1,8 +1,8 @@
 package it.naick.permanenteffects.listeners;
 
 import it.naick.permanenteffects.PermanentEffects;
+import it.naick.permanenteffects.enums.config.GUI;
 import it.naick.permanenteffects.listeners.manager.ListenerManager;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
@@ -14,7 +14,6 @@ public class InventoryListener extends ListenerManager {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        Player player = (Player) e.getWhoClicked();
-        if (!e.getClickedInventory().getTitle().equals()) return;
+        if (!e.getClickedInventory().getTitle().equals(GUI.TITLE.getMessage())) e.setCancelled(true);
     }
 }

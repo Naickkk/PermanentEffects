@@ -2,3 +2,13 @@ name: PermanentEffects
 version: '${project.version}'
 main: it.naick.permanenteffects.PermanentEffects
 authors: [ Naick ]
+commands:
+  permanenteffects:
+    aliases:
+      - effectsgui
+      - effectgui
+      - pe
+      - permanenteffect
+      - permaeffects
+      - permaeffect
+      - effects

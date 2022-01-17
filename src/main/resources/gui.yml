@@ -9,8 +9,8 @@ potion-item:
     - ""
     - " &e&nClicca per acquistare"
 
-potion-effects: #Effect|DisplayName|Max
-  - RESISTANCE|Resistenza|5
+potion-effects: #Effect|Slot|DisplayName|Max
+  - RESISTANCE|11|Resistenza|5
   - FIRE_RESISTANCE|Resistenza al Fuoco|3
   - STRENGHT|Forza|2
 items:
