@@ -18,7 +18,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(Material material, short durability) {
-        this.itemStack = new ItemStack(material, durability);
+        this.itemStack = new ItemStack(material, 1, durability);
         this.itemMeta = itemStack.getItemMeta();
     }
 

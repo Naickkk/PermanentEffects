@@ -15,7 +15,7 @@ public class FileManager implements IFileManager {
 
     public FileManager() {
         addFile(new DefaultConfigFile(PermanentEffects.getInstance(), "gui"));
-        addFile(new DefaultConfigFile(PermanentEffects.getInstance(), "messages"));
+        addFile(new DefaultConfigFile(PermanentEffects.getInstance(), "data"));
     }
 
     @Override
