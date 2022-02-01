@@ -1,13 +1,12 @@
 package it.naick.permanenteffects.tasks;
 
+import it.naick.permanenteffects.PermanentEffects;
 import it.naick.permanenteffects.objects.EffectPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.Objects;
 
 public class EffectsTask extends BukkitRunnable {
 
@@ -18,10 +17,15 @@ public class EffectsTask extends BukkitRunnable {
             if (effectPlayer.getEffectList().isEmpty()) continue;
             for (PotionEffectType potionEffectType : effectPlayer.getEffectList().keySet()) {
                 PotionEffect potionEffect = new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false);
-                if (onlinePlayer.hasPotionEffect(potionEffectType) && Objects.requireNonNull(getPotionEffect(onlinePlayer, potionEffectType)).getAmplifier() < potionEffect.getAmplifier())
+                if (onlinePlayer.hasPotionEffect(potionEffectType)
+                        && getPotionEffect(onlinePlayer, potionEffectType).getAmplifier() < potionEffect.getAmplifier())
                     onlinePlayer.removePotionEffect(potionEffectType);
-                if (Objects.requireNonNull(getPotionEffect(onlinePlayer, potionEffectType)).getAmplifier() < potionEffect.getAmplifier() || !onlinePlayer.hasPotionEffect(potionEffectType))
-                    onlinePlayer.addPotionEffect(new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false));
+
+                Bukkit.getScheduler().runTaskLater(PermanentEffects.getInstance(), () -> {
+                    if (!onlinePlayer.hasPotionEffect(potionEffectType)
+                            || getPotionEffect(onlinePlayer, potionEffectType) == null)
+                        onlinePlayer.addPotionEffect(new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false));
+                }, 5L);
             }
         }
     }
