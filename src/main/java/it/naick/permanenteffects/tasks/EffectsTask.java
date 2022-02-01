@@ -20,15 +20,15 @@ public class EffectsTask extends BukkitRunnable {
                 PotionEffect potionEffect = new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false);
                 if (onlinePlayer.hasPotionEffect(potionEffectType) && Objects.requireNonNull(getPotionEffect(onlinePlayer, potionEffectType)).getAmplifier() < potionEffect.getAmplifier())
                     onlinePlayer.removePotionEffect(potionEffectType);
-                onlinePlayer.addPotionEffect(new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false));
+                if (Objects.requireNonNull(getPotionEffect(onlinePlayer, potionEffectType)).getAmplifier() < potionEffect.getAmplifier() || !onlinePlayer.hasPotionEffect(potionEffectType))
+                    onlinePlayer.addPotionEffect(new PotionEffect(potionEffectType, Integer.MAX_VALUE, effectPlayer.getEffectList().get(potionEffectType) - 1, false, false));
             }
         }
     }
 
     private PotionEffect getPotionEffect(Player player, PotionEffectType potionEffectType) {
-        for (PotionEffect activePotionEffect : player.getActivePotionEffects()) {
+        for (PotionEffect activePotionEffect : player.getActivePotionEffects())
             if (potionEffectType == activePotionEffect.getType()) return activePotionEffect;
-        }
         return null;
     }
 }
